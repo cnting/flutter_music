@@ -15,8 +15,8 @@ dependencies:
   get_it: ^3.0.3
   cached_network_image: ^1.1.2+1
   provider: ^3.1.0+1
-  netease_music_api:
-    path: cloud_music_api/
+#  netease_music_api:
+#    path: cloud_music_api/
 
 
 dev_dependencies:

@@ -1,3 +1,0 @@
-[submodule "cloud_music_api"]
-	path = cloud_music_api
-	url = https://github.com/ziming1/NeteaseCloudMusicApi
