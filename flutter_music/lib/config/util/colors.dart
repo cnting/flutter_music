@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
-class CommonColors{
+class CommonColors {
   static const Color primaryColor = const MaterialColor(0xFFdd4237, {
     900: const Color(0xFFae2a20),
     800: const Color(0xFFbe332a),
@@ -17,4 +17,10 @@ class CommonColors{
   });
 
   static const Color iconColor = Color(0xff666666);
+  static const Color dividerColor = Color(0xffeaeaea);
+  static const Color bigDividerColor = Color(0xfff5f5f5);
+
+  ///金刚区
+  static const Color kingKongIconColor = Color(0xfff7ffff);
+  static const Color kingKongTextColor = Color(0xffc1c1c1);
 }
