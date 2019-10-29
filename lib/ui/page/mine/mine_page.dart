@@ -12,40 +12,46 @@ class MinePage extends StatefulWidget {
 class _MinePageState extends State<MinePage> {
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: <Widget>[
-          _kingKongArea(),
-          Divider(),
-          ..._list(),
-          bigDivider(),
-          _PlayListWidget(),
-          bigDivider(),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 15),
-            child: playlistGrid([
-              '1',
-              '1',
-              '1',
-              '1',
-              '1',
-              '1',
-              '1',
-              '1',
-              '1',
-            ], 2),
-          )
-        ],
-      ),
+    return CustomScrollView(
+      slivers: <Widget>[
+        SliverToBoxAdapter(
+          child: _kingKongArea(),
+        ),
+        SliverToBoxAdapter(
+          child: Divider(),
+        ),
+        _list(),
+        SliverToBoxAdapter(
+          child: bigDivider(),
+        ),
+        SliverToBoxAdapter(
+          child: _PlayListWidget(),
+        ),
+        SliverPadding(
+          padding: EdgeInsets.symmetric(horizontal: 15),
+          sliver: playlistGrid([
+            '1',
+            '1',
+            '1',
+            '1',
+            '1',
+            '1',
+            '1',
+            '1',
+            '1',
+          ], 2),
+        )
+      ],
     );
   }
 
   Widget _kingKongArea() {
     return Padding(
-      padding: EdgeInsets.only(top: 20, bottom: 20),
+      padding: EdgeInsets.all(20),
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Wrap(
+          alignment: WrapAlignment.center,
           spacing: 35,
           children: <Widget>[
             kingKongIcon(context, '私人FM', Icons.radio, () {}),
@@ -58,54 +64,52 @@ class _MinePageState extends State<MinePage> {
     );
   }
 
-  List<Widget> _list() {
-    return [
+  Widget _list() {
+    List<Widget> children = [
       _listItem(Icons.music_video, '本地音乐', '(0)', () {}),
-      Padding(
-        padding: EdgeInsets.only(left: 80),
-        child: Divider(),
-      ),
       _listItem(Icons.playlist_play, '最近播放', '(0)', () {}),
-      Padding(
-        padding: EdgeInsets.only(left: 80),
-        child: Divider(),
-      ),
       _listItem(Icons.cloud_download, '下载管理', '(0)', () {}),
-      Padding(
-        padding: EdgeInsets.only(left: 80),
-        child: Divider(),
-      ),
       _listItem(Icons.library_music, '我的电台', '(0)', () {}),
-      Padding(
-        padding: EdgeInsets.only(left: 80),
-        child: Divider(),
-      ),
       _listItem(Icons.stars, '我的收藏', '(专辑/歌手/视频/专栏/Mlog)', () {}),
     ];
+    return SliverFixedExtentList(
+      delegate: SliverChildListDelegate.fixed(children),
+      itemExtent: 55,
+    );
   }
 
   Widget _listItem(
-      IconData iconData, String title, String subTitle, Function onPressed) {
-    return Row(
+      IconData iconData, String title, String subTitle, Function onPressed,
+      {bool hasDivider = true}) {
+    return Column(
       children: <Widget>[
-        Container(
-          width: 80,
-          height: 45,
-          alignment: Alignment.center,
-          child: Icon(
-            iconData,
-            size: 28,
-          ),
-        ),
-        Text(
-          title,
-        ),
+        Expanded(
+            child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              width: 80,
+              alignment: Alignment.center,
+              child: Icon(
+                iconData,
+                size: 28,
+              ),
+            ),
+            Text(
+              title,
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 10),
+              child: Text(
+                subTitle,
+              ),
+            )
+          ],
+        )),
         Padding(
-          padding: EdgeInsets.only(left: 10),
-          child: Text(
-            subTitle,
-          ),
-        )
+          padding: EdgeInsets.only(left: 80, bottom: 0),
+          child: Divider(),
+        ),
       ],
     );
   }

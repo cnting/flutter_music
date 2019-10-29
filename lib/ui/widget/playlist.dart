@@ -5,19 +5,15 @@ import 'package:flutter/cupertino.dart';
 
 ///GridView形式的歌单
 Widget playlistGrid(List list, int row) {
-  return GridView.builder(
-    shrinkWrap: true,
-    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-      crossAxisCount: 3,
-      mainAxisSpacing: 15,
-      childAspectRatio: 0.7,
-      crossAxisSpacing: 10
-    ),
-    itemBuilder: (BuildContext context, int index) {
-      return _singlePlaylist();
-    },
-    itemCount: min(list.length, row * 3),
-  );
+  return SliverGrid(
+      delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
+        return _singlePlaylist();
+      }, childCount: min(list.length, row * 3)),
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 3,
+          mainAxisSpacing: 15,
+          childAspectRatio: 0.7,
+          crossAxisSpacing: 10));
 }
 
 Widget _singlePlaylist() {
