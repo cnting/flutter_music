@@ -1,9 +1,12 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_music/config/router/route_handler.dart';
-import 'package:flutter_music/config/ui/page/home_page.dart';
-import 'package:flutter_music/config/ui/page/mine/mine_page.dart';
-import 'package:flutter_music/config/ui/page/splash_page.dart';
+import 'package:flutter_music/ui/page/home/home_page.dart';
+import 'package:flutter_music/ui/page/login_page.dart';
+import 'package:flutter_music/ui/page/mine/mine_page.dart';
+import 'package:flutter_music/ui/page/splash_page.dart';
+
+import 'route_handler.dart';
 
 class Routes {
   static String root = "/";
@@ -23,6 +26,9 @@ class Routes {
   ///首页-视频
   static const String homeVideo = "/home/video";
 
+  ///登录
+  static const String login = "/login";
+
   static void configureRoutes(Router router) {
     router.notFoundHandler = Handler(handlerFunc:
         (BuildContext context, Map<String, List<String>> parameters) {
@@ -32,5 +38,6 @@ class Routes {
     router.define(root, handler: commonHandler(SplashPage()));
     router.define(home, handler: commonHandler(HomePage()));
     router.define(homeMine, handler: commonHandler(MinePage()));
+    router.define(login, handler: commonHandler(LoginPage()));
   }
 }

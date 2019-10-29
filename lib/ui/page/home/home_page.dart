@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_music/config/ui/page/mine/mine_page.dart';
+import 'package:flutter_music/config/application.dart';
+import 'package:flutter_music/ui/page/home/home_drawer.dart';
+
+import '../../../config/router/routes.dart';
+import '../mine/mine_page.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -38,11 +42,7 @@ class _HomePageState extends State<HomePage> {
               )
             ],
           ),
-          drawer: Drawer(
-            child: Container(
-              color: Colors.red,
-            ),
-          ),
+          drawer: homeDrawer(context),
           body: TabBarView(
             children: <Widget>[
               MinePage(),

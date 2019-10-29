@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_music/config/util/colors.dart';
+import 'package:flutter_music/util/colors.dart';
 
 Widget kingKongIcon(
     BuildContext context, String title, IconData iconData, Function onPressed) {

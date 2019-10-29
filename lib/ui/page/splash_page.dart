@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_music/config/router/application.dart';
+import 'package:flutter_music/config/application.dart';
 import 'package:flutter_music/config/router/routes.dart';
 
 class SplashPage extends StatefulWidget {

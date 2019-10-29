@@ -16,11 +16,15 @@ class CommonColors {
     50: const Color(0xFFfeebee),
   });
 
+  static const Color background = Colors.white;
   static const Color iconColor = Color(0xff666666);
-  static const Color dividerColor = Color(0xffeaeaea);
+  static const Color dividerColor = Color(0xffe6e6e6);
   static const Color bigDividerColor = Color(0xfff5f5f5);
 
   ///金刚区
   static const Color kingKongIconColor = Color(0xfff7ffff);
   static const Color kingKongTextColor = Color(0xffc1c1c1);
+
+  static const Color drawerHeaderBgColor = Color(0xffeae9e9);
+  static const Color drawerTextColor = Color(0xff666666);
 }

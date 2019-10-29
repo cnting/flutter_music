@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_music/config/provider/provider_manager.dart';
+import 'package:provider/provider.dart';
 
-import 'config/router/application.dart';
-import 'config/util/theme.dart';
+import 'config/application.dart';
+import 'util/theme.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   init();
   runApp(MyApp());
 }
@@ -11,10 +14,13 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Music',
-      theme: appTheme,
-      onGenerateRoute: App.router.generator,
+    return MultiProvider(
+      providers: providers,
+      child: MaterialApp(
+        title: 'Flutter Music',
+        theme: appTheme,
+        onGenerateRoute: App.router.generator,
+      ),
     );
   }
 }

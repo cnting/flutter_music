@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_music/config/ui/widget/common.dart';
-import 'package:flutter_music/config/ui/widget/king_kong_area.dart';
-import 'package:flutter_music/config/ui/widget/playlist.dart';
+import 'package:flutter_music/ui/widget/common.dart';
+import 'package:flutter_music/ui/widget/king_kong_area.dart';
+import 'package:flutter_music/ui/widget/playlist.dart';
 
 class MinePage extends StatefulWidget {
   @override
