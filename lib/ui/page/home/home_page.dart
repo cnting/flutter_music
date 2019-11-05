@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_music/config/application.dart';
 import 'package:flutter_music/ui/page/home/home_drawer.dart';
 
-import '../../../config/router/routes.dart';
 import '../mine/mine_page.dart';
 
 class HomePage extends StatefulWidget {

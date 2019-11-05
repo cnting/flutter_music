@@ -4,7 +4,7 @@ description: flutter music demo
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.2.2 <3.0.0"
 
 dependencies:
   flutter:
@@ -23,6 +23,7 @@ dependencies:
   cookie_jar: ^1.0.1
   path_provider: ^1.4.0
   shared_preferences: ^0.5.4+3
+  async: ^2.3.0
 
 
 dev_dependencies:

@@ -30,22 +30,34 @@ class UserAccount {
 class UserProfile {
   UserProfile();
 
-  bool mutual;
-  String remarkName;
   bool defaultAvatar;
-  String avatarUrl;
-  int gender;
-  int birthday;
-  int city;
-  int accountStatus;
-  String nickname;
+  int province;
   int authStatus;
+  bool followed;
+  String avatarUrl;
+  int accountStatus;
+  int gender;
+  int city;
+  int birthday;
   int userId;
-  String expertTags;
+  int userType;
+  String nickname;
+  String signature;
+  String description;
   int avatarImgId;
   int backgroundImgId;
-  int userType;
+  String backgroundUrl;
+  int authority;
+  bool mutual;
+  List<String> expertTags;  //标签，比如【华语】
+  Map<String,dynamic> experts;     //人的标签，比如【音乐视频达人】
+  int djStatus;
   int vipType;
+  String remarkName;
+  String avatarImgIdStr;
+  String backgroundImgIdStr;
+  String avatarImgId_str;
+
 
   factory UserProfile.fromJson(Map<String, dynamic> json) =>
       _$UserProfileFromJson(json);

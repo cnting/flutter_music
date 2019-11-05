@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_music/model/view_state.dart';
 
-class ViewStateVM with ChangeNotifier {
+abstract class ViewStateVM with ChangeNotifier {
   ViewState _viewState;
 
   set state(ViewState state) {

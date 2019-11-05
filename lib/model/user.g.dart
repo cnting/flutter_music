@@ -42,40 +42,63 @@ Map<String, dynamic> _$UserAccountToJson(UserAccount instance) =>
 
 UserProfile _$UserProfileFromJson(Map<String, dynamic> json) {
   return UserProfile()
-    ..mutual = json['mutual'] as bool
-    ..remarkName = json['remarkName'] as String
     ..defaultAvatar = json['defaultAvatar'] as bool
-    ..avatarUrl = json['avatarUrl'] as String
-    ..gender = json['gender'] as int
-    ..birthday = json['birthday'] as int
-    ..city = json['city'] as int
-    ..accountStatus = json['accountStatus'] as int
-    ..nickname = json['nickname'] as String
+    ..province = json['province'] as int
     ..authStatus = json['authStatus'] as int
+    ..followed = json['followed'] as bool
+    ..avatarUrl = json['avatarUrl'] as String
+    ..accountStatus = json['accountStatus'] as int
+    ..gender = json['gender'] as int
+    ..city = json['city'] as int
+    ..birthday = json['birthday'] as int
     ..userId = json['userId'] as int
-    ..expertTags = json['expertTags'] as String
+    ..userType = json['userType'] as int
+    ..nickname = json['nickname'] as String
+    ..signature = json['signature'] as String
+    ..description = json['description'] as String
     ..avatarImgId = json['avatarImgId'] as int
     ..backgroundImgId = json['backgroundImgId'] as int
-    ..userType = json['userType'] as int
-    ..vipType = json['vipType'] as int;
+    ..backgroundUrl = json['backgroundUrl'] as String
+    ..authority = json['authority'] as int
+    ..mutual = json['mutual'] as bool
+    ..expertTags =
+        (json['expertTags'] as List)?.map((e) => e as String)?.toList()
+    ..experts = json['experts'] as Map<String, dynamic>
+    ..djStatus = json['djStatus'] as int
+    ..vipType = json['vipType'] as int
+    ..remarkName = json['remarkName'] as String
+    ..avatarImgIdStr = json['avatarImgIdStr'] as String
+    ..backgroundImgIdStr = json['backgroundImgIdStr'] as String
+    ..avatarImgId_str = json['avatarImgId_str'] as String;
 }
 
 Map<String, dynamic> _$UserProfileToJson(UserProfile instance) =>
     <String, dynamic>{
-      'mutual': instance.mutual,
-      'remarkName': instance.remarkName,
       'defaultAvatar': instance.defaultAvatar,
-      'avatarUrl': instance.avatarUrl,
-      'gender': instance.gender,
-      'birthday': instance.birthday,
-      'city': instance.city,
-      'accountStatus': instance.accountStatus,
-      'nickname': instance.nickname,
+      'province': instance.province,
       'authStatus': instance.authStatus,
+      'followed': instance.followed,
+      'avatarUrl': instance.avatarUrl,
+      'accountStatus': instance.accountStatus,
+      'gender': instance.gender,
+      'city': instance.city,
+      'birthday': instance.birthday,
       'userId': instance.userId,
-      'expertTags': instance.expertTags,
+      'userType': instance.userType,
+      'nickname': instance.nickname,
+      'signature': instance.signature,
+      'description': instance.description,
       'avatarImgId': instance.avatarImgId,
       'backgroundImgId': instance.backgroundImgId,
-      'userType': instance.userType,
+      'backgroundUrl': instance.backgroundUrl,
+      'authority': instance.authority,
+      'mutual': instance.mutual,
+      'expertTags': instance.expertTags,
+      'experts': instance.experts,
+      'djStatus': instance.djStatus,
       'vipType': instance.vipType,
+      'remarkName': instance.remarkName,
+      'avatarImgIdStr': instance.avatarImgIdStr,
+      'backgroundImgIdStr': instance.backgroundImgIdStr,
+      'avatarImgId_str': instance.avatarImgId_str,
     };

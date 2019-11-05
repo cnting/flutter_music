@@ -1,8 +1,14 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_music/ui/widget/common.dart';
+import 'package:flutter_music/ui/widget/dialog.dart';
 import 'package:flutter_music/ui/widget/king_kong_area.dart';
-import 'package:flutter_music/ui/widget/playlist.dart';
+import 'package:flutter_music/ui/widget/provider_widget.dart';
+import 'package:flutter_music/view_model/user_counter_vm.dart';
+import 'package:flutter_music/view_model/user_playlist_vm.dart';
+import 'package:flutter_music/view_model/user_vm.dart';
+import 'package:provider/provider.dart';
+
+import 'mine_widget.dart';
 
 class MinePage extends StatefulWidget {
   @override
@@ -27,20 +33,20 @@ class _MinePageState extends State<MinePage> {
         SliverToBoxAdapter(
           child: _PlayListWidget(),
         ),
-        SliverPadding(
-          padding: EdgeInsets.symmetric(horizontal: 15),
-          sliver: playlistGrid([
-            '1',
-            '1',
-            '1',
-            '1',
-            '1',
-            '1',
-            '1',
-            '1',
-            '1',
-          ], 2),
-        )
+//        SliverPadding(
+//          padding: EdgeInsets.symmetric(horizontal: 15),
+//          sliver: playlistGrid([
+//            '1',
+//            '1',
+//            '1',
+//            '1',
+//            '1',
+//            '1',
+//            '1',
+//            '1',
+//            '1',
+//          ], 2),
+//        )
       ],
     );
   }
@@ -65,16 +71,33 @@ class _MinePageState extends State<MinePage> {
   }
 
   Widget _list() {
-    List<Widget> children = [
-      _listItem(Icons.music_video, '本地音乐', '(0)', () {}),
-      _listItem(Icons.playlist_play, '最近播放', '(0)', () {}),
-      _listItem(Icons.cloud_download, '下载管理', '(0)', () {}),
-      _listItem(Icons.library_music, '我的电台', '(0)', () {}),
-      _listItem(Icons.stars, '我的收藏', '(专辑/歌手/视频/专栏/Mlog)', () {}),
-    ];
-    return SliverFixedExtentList(
-      delegate: SliverChildListDelegate.fixed(children),
-      itemExtent: 55,
+    return ProviderWidget(
+      model: UserCounterVM(),
+      builder: (BuildContext context, UserCounterVM value, Widget child) {
+        return SliverFixedExtentList(
+          delegate: SliverChildListDelegate.fixed([
+            _listItem(Icons.music_video, '本地音乐', '0', () {}),
+            _listItem(Icons.playlist_play, '最近播放', '0', () {}),
+            _listItem(Icons.cloud_download, '下载管理', '0', () {}),
+            _listItem(
+                Icons.library_music,
+                '我的电台',
+                value.isSuccess() ? '${value.userCounter.djRadioCount}' : '0',
+                () {}),
+            _listItem(
+                Icons.stars,
+                '我的收藏',
+                value.isSuccess()
+                    ? '${value.userCounter.artistCount}'
+                    : '专辑/歌手/视频/专栏/Mlog',
+                () {}),
+          ]),
+          itemExtent: 55,
+        );
+      },
+      onModelReady: (UserCounterVM value) {
+        value.getUserSubCount();
+      },
     );
   }
 
@@ -101,7 +124,7 @@ class _MinePageState extends State<MinePage> {
             Padding(
               padding: EdgeInsets.only(left: 10),
               child: Text(
-                subTitle,
+                '($subTitle)',
               ),
             )
           ],
@@ -125,94 +148,41 @@ class _PlayListState extends State<_PlayListWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Row(
+    return ProviderWidget2(
+      model1: UserPlaylistVM(),
+      model2: Provider.of<UserVM>(context),
+      builder: (context, UserPlaylistVM userPlaylistVM, UserVM userVM,
+          Widget child) {
+        return Column(
           children: <Widget>[
-            ExpandIcon(
-              isExpanded: isExpand,
-              onPressed: (isExpand) {
-                setState(() {
-                  this.isExpand = !this.isExpand;
-                });
-              },
-            ),
-            Text('创建的歌单'),
-            Text('(1)'),
-            Spacer(),
-            IconButton(
-              icon: Icon(Icons.add),
-              onPressed: () {},
-            ),
-            IconButton(
-              icon: Icon(Icons.more_vert),
-              onPressed: () {},
-            ),
+            if (userPlaylistVM.createPlaylist.isNotEmpty)
+              PlaylistExpandWidget('创建的歌单', userPlaylistVM.createPlaylist, [
+                IconButton(
+                  icon: Icon(Icons.add),
+                  onPressed: () {
+                    showCommonDialog(context, CreatePlaylistWidget(userPlaylistVM));
+                  },
+                ),
+                IconButton(
+                  icon: Icon(Icons.more_vert),
+                  onPressed: () {},
+                ),
+              ]),
+            if (userPlaylistVM.collectionPlaylist.isNotEmpty)
+              PlaylistExpandWidget('收藏的歌单', userPlaylistVM.collectionPlaylist, [
+                IconButton(
+                  icon: Icon(Icons.more_vert),
+                  onPressed: () {},
+                ),
+              ]),
           ],
-        ),
-        if (isExpand) ..._myPlayList()
-      ],
-    );
-  }
-
-  List<Widget> _myPlayList() {
-    return [
-      _playlistItem(title: '我喜欢的音乐', count: 0, isDefault: true),
-      _playlistItem(
-        title: 'TODO：调接口',
-        count: 0,
-      ),
-    ];
-  }
-
-  Widget _playlistItem(
-      {String title,
-      int count,
-      String imgUrl,
-      Widget rightWidget,
-      bool isDefault = false,
-      Function onPressed}) {
-    Widget image;
-    if (image == null && imgUrl == null) {
-      image = Container(
-        margin: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-        decoration: BoxDecoration(
-            color: Colors.black, borderRadius: BorderRadius.circular(5)),
-        width: 50,
-        height: 50,
-        child: Image.asset(isDefault
-            ? 'assets/img/heart.png'
-            : 'assets/img/default_playlist_cover.png'),
-      );
-    } else if (image == null && imgUrl == null) {
-      image = CachedNetworkImage(
-        imageUrl: imgUrl,
-        width: 50,
-        height: 50,
-      );
-    }
-
-    return GestureDetector(
-      child: Container(
-        child: Row(
-          children: <Widget>[
-            image,
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(title),
-                Padding(
-                  padding: EdgeInsets.only(top: 5),
-                  child: Text('$count首'),
-                )
-              ],
-            ),
-            Spacer(),
-            if (rightWidget != null) rightWidget
-          ],
-        ),
-      ),
-      onTap: onPressed,
+        );
+      },
+      onModelReady: (UserPlaylistVM userPlaylistVM, UserVM userVM) {
+        if (userVM.isLogin) {
+          userPlaylistVM.getUserPlaylist(userVM.userAccount.id);
+        }
+      },
     );
   }
 }

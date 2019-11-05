@@ -1,17 +1,18 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
 import 'package:flutter_music/config/application.dart';
 import 'package:flutter_music/config/repository/shared_preference.dart';
 import 'package:flutter_music/model/user.dart';
 
-class UserVM with ChangeNotifier {
+import 'view_state_vm.dart';
+
+class UserVM extends ViewStateVM {
   bool isLogin = false;
 
   UserAccount userAccount;
   UserProfile userProfile;
 
-  void saveUser(Map<dynamic, dynamic> map) {
+  void saveUserAfterLogin(Map<dynamic, dynamic> map) {
     Map<dynamic, dynamic> account = map['account'];
     Map<dynamic, dynamic> profile = map['profile'];
 
@@ -28,7 +29,6 @@ class UserVM with ChangeNotifier {
     String sAccount =
         await App.sp.getString(SpKey.USER_ACCOUNT, defaultValue: null);
     if (sAccount != null) {
-      debugPrint('===>sAccount:$sAccount');
       Map<dynamic, dynamic> account = jsonDecode(sAccount);
       userAccount = UserAccount.fromJson(account);
     }
@@ -42,4 +42,5 @@ class UserVM with ChangeNotifier {
 
     isLogin = userAccount != null && userProfile != null;
   }
+
 }
