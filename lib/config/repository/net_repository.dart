@@ -82,8 +82,8 @@ class NetRepository {
 
   ///创建歌单
   Future<Result<Map<String, dynamic>>> createPlaylist(
-      String name, bool isPrivite) {
+      String name, bool isPrivate) {
     return _doRequest('/playlist/create',
-        params: {'name': name, if (isPrivite) 'privacy': 10});
+        params: {'name': name, if (isPrivate) 'privacy': 10});
   }
 }

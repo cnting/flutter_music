@@ -1,7 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_music/model/playlist.dart';
+import 'package:flutter_music/ui/widget/provider_widget.dart';
 import 'package:flutter_music/view_model/user_playlist_vm.dart';
+import 'package:flutter_music/view_model/user_vm.dart';
+import 'package:provider/provider.dart';
 
 ///歌单展开
 class PlaylistExpandWidget extends StatefulWidget {
@@ -105,9 +108,7 @@ class _PlaylistExpandWidgetState extends State<PlaylistExpandWidget> {
 
 ///添加歌单
 class CreatePlaylistWidget extends StatefulWidget {
-  final UserPlaylistVM userPlaylistVM;
-
-  CreatePlaylistWidget(this.userPlaylistVM);
+  CreatePlaylistWidget();
 
   @override
   _CreatePlaylistWidgetState createState() => _CreatePlaylistWidgetState();
@@ -187,23 +188,27 @@ class _CreatePlaylistWidgetState extends State<CreatePlaylistWidget> {
                   Navigator.pop(context);
                 },
               ),
-              Builder(
-                builder: (context) {
+              ProviderWidget2(
+                model1: UserPlaylistVM(Provider.of<GlobalUserVM>(context)),
+                model2: Provider.of<GlobalPlaylistVM>(context),
+                builder: (BuildContext context, UserPlaylistVM userPlaylistVM,
+                    GlobalPlaylistVM globalPlaylistVM, Widget child) {
                   return FlatButton(
-                    child: Text(
-                      '提交',
-                      style: TextStyle(
-                          fontSize: 16, color: Theme.of(context).primaryColor),
-                    ),
+                    child: child,
                     onPressed: () {
                       if (Form.of(context).validate()) {
-                        widget.userPlaylistVM.createNewPlaylist(
+                        userPlaylistVM.createNewPlaylist(globalPlaylistVM,
                             _controller.value.text, _isPrivite);
                         Navigator.pop(context);
                       }
                     },
                   );
                 },
+                child: Text(
+                  '提交',
+                  style: TextStyle(
+                      fontSize: 16, color: Theme.of(context).primaryColor),
+                ),
               )
             ],
           )

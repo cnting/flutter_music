@@ -149,18 +149,18 @@ class _PlayListState extends State<_PlayListWidget> {
   @override
   Widget build(BuildContext context) {
     return ProviderWidget2(
-      model1: UserPlaylistVM(),
-      model2: Provider.of<UserVM>(context),
-      builder: (context, UserPlaylistVM userPlaylistVM, UserVM userVM,
-          Widget child) {
+      model1: UserPlaylistVM(Provider.of<GlobalUserVM>(context)),
+      model2: Provider.of<GlobalPlaylistVM>(context),
+      builder: (context, UserPlaylistVM userPlaylistVM,
+          GlobalPlaylistVM globalPlaylistVM, Widget child) {
         return Column(
           children: <Widget>[
-            if (userPlaylistVM.createPlaylist.isNotEmpty)
-              PlaylistExpandWidget('创建的歌单', userPlaylistVM.createPlaylist, [
+            if (globalPlaylistVM.createPlaylist.isNotEmpty)
+              PlaylistExpandWidget('创建的歌单', globalPlaylistVM.createPlaylist, [
                 IconButton(
                   icon: Icon(Icons.add),
                   onPressed: () {
-                    showCommonDialog(context, CreatePlaylistWidget(userPlaylistVM));
+                    showCommonDialog(context, CreatePlaylistWidget());
                   },
                 ),
                 IconButton(
@@ -168,8 +168,9 @@ class _PlayListState extends State<_PlayListWidget> {
                   onPressed: () {},
                 ),
               ]),
-            if (userPlaylistVM.collectionPlaylist.isNotEmpty)
-              PlaylistExpandWidget('收藏的歌单', userPlaylistVM.collectionPlaylist, [
+            if (globalPlaylistVM.collectionPlaylist.isNotEmpty)
+              PlaylistExpandWidget(
+                  '收藏的歌单', globalPlaylistVM.collectionPlaylist, [
                 IconButton(
                   icon: Icon(Icons.more_vert),
                   onPressed: () {},
@@ -178,10 +179,9 @@ class _PlayListState extends State<_PlayListWidget> {
           ],
         );
       },
-      onModelReady: (UserPlaylistVM userPlaylistVM, UserVM userVM) {
-        if (userVM.isLogin) {
-          userPlaylistVM.getUserPlaylist(userVM.userAccount.id);
-        }
+      onModelReady:
+          (UserPlaylistVM userPlaylistVM, GlobalPlaylistVM globalPlaylistVM) {
+        userPlaylistVM.getMyPlaylist(globalPlaylistVM);
       },
     );
   }

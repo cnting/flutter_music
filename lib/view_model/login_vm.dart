@@ -4,12 +4,12 @@ import 'package:flutter_music/config/application.dart';
 import 'package:flutter_music/config/router/routes.dart';
 import 'package:flutter_music/util/toast.dart';
 import 'package:flutter_music/view_model/user_vm.dart';
-import 'package:flutter_music/view_model/view_state_vm.dart';
+import 'package:flutter_music/view_model/base/view_state_vm.dart';
 
 class LoginVM extends ViewStateVM {
-  UserVM _userVM;
+  GlobalUserVM _userVM;
 
-  LoginVM(UserVM userVM) {
+  LoginVM(GlobalUserVM userVM) {
     this._userVM = userVM;
   }
 

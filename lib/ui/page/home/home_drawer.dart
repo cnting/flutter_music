@@ -25,10 +25,10 @@ Widget _drawerHeader(BuildContext context) {
     decoration: BoxDecoration(color: CommonColors.drawerHeaderBgColor),
     padding: EdgeInsets.symmetric(vertical: 20),
     child: ProviderWidget(
-      model: Provider.of<UserVM>(context),
+      model: Provider.of<GlobalUserVM>(context),
       builder: (
         context,
-        UserVM value,
+        GlobalUserVM value,
         Widget child,
       ) {
         if (value.isLogin) {
@@ -72,7 +72,7 @@ Widget _notLoginHeader(BuildContext context) {
   );
 }
 
-Widget loginHeader(BuildContext context, UserVM userVM) {
+Widget loginHeader(BuildContext context, GlobalUserVM userVM) {
   Widget avatar;
   if (userVM.userProfile.defaultAvatar) {
     avatar = Container(

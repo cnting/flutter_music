@@ -72,10 +72,10 @@ class _ProviderWidgetState2<A extends ChangeNotifier, B extends ChangeNotifier>
 
   @override
   void initState() {
+    super.initState();
     model1 = widget.model1;
     model2 = widget.model2;
     widget.onModelReady?.call(model1, model2);
-    super.initState();
   }
 
   @override

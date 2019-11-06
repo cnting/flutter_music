@@ -1,7 +1,7 @@
 import 'package:async/async.dart';
 import 'package:flutter_music/config/application.dart';
 import 'package:flutter_music/model/user_counter.dart';
-import 'package:flutter_music/view_model/view_state_vm.dart';
+import 'package:flutter_music/view_model/base/view_state_vm.dart';
 
 class UserCounterVM extends ViewStateVM {
   UserCounter userCounter;

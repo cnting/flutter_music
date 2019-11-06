@@ -1,12 +1,11 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_music/config/application.dart';
 import 'package:flutter_music/config/repository/shared_preference.dart';
 import 'package:flutter_music/model/user.dart';
 
-import 'view_state_vm.dart';
-
-class UserVM extends ViewStateVM {
+class GlobalUserVM extends ChangeNotifier {
   bool isLogin = false;
 
   UserAccount userAccount;
