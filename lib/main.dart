@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_music/config/provider/provider_manager.dart';
+import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
 
 import 'config/application.dart';
@@ -16,10 +17,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: providers,
-      child: MaterialApp(
-        title: 'Flutter Music',
-        theme: appTheme,
-        onGenerateRoute: App.router.generator,
+      child: OKToast(
+        child: MaterialApp(
+          title: 'Flutter Music',
+          theme: appTheme,
+          onGenerateRoute: App.router.generator,
+        ),
       ),
     );
   }

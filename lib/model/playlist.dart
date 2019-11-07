@@ -43,6 +43,7 @@ class PlaylistDetail {
   String description;
   int status;
   String name;
+  int id;
   String coverImgId_str;
 
   factory PlaylistDetail.fromJson(Map<String, dynamic> json) =>

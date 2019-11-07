@@ -22,18 +22,19 @@ class _HomePageState extends State<HomePage> {
             backgroundColor: Theme.of(context).backgroundColor,
             titleSpacing: 0,
             title: TabBar(
-              labelPadding: EdgeInsets.all(0),
+              labelPadding: const EdgeInsets.all(0),
               tabs: tabs.map((tab) => Text(tab)).toList(),
               labelColor: Colors.black54,
-              labelStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              labelStyle:
+                  const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               unselectedLabelColor: Colors.black38,
-              unselectedLabelStyle: TextStyle(fontSize: 16),
+              unselectedLabelStyle: const TextStyle(fontSize: 16),
               indicatorColor: Colors.transparent,
               indicatorSize: TabBarIndicatorSize.label,
             ),
             actions: <Widget>[
               IconButton(
-                icon: Icon(
+                icon: const Icon(
                   Icons.search,
                 ),
                 onPressed: () {},

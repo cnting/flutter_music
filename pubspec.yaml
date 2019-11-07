@@ -24,7 +24,9 @@ dependencies:
   path_provider: ^1.4.0
   shared_preferences: ^0.5.4+3
   async: ^2.3.0
-
+  oktoast: ^2.1.9
+  #将返回widget的方法变成StatelessWidget，提升性能
+#  functional_widget: ^0.7.1
 
 dev_dependencies:
   flutter_test:

@@ -86,4 +86,9 @@ class NetRepository {
     return _doRequest('/playlist/create',
         params: {'name': name, if (isPrivate) 'privacy': 10});
   }
+
+  ///删除歌单
+  Future<Result<Map<String, dynamic>>> deletePlaylist(int id) {
+    return _doRequest('/playlist/delete', params: {'id': id});
+  }
 }

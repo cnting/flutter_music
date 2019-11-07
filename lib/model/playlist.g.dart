@@ -46,6 +46,7 @@ PlaylistDetail _$PlaylistDetailFromJson(Map<String, dynamic> json) {
     ..description = json['description'] as String
     ..status = json['status'] as int
     ..name = json['name'] as String
+    ..id = json['id'] as int
     ..coverImgId_str = json['coverImgId_str'] as String;
 }
 
@@ -87,6 +88,7 @@ Map<String, dynamic> _$PlaylistDetailToJson(PlaylistDetail instance) =>
       'description': instance.description,
       'status': instance.status,
       'name': instance.name,
+      'id': instance.id,
       'coverImgId_str': instance.coverImgId_str,
     };
 

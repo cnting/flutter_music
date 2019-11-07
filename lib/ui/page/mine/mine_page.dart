@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_music/ui/widget/common.dart';
 import 'package:flutter_music/ui/widget/dialog.dart';
 import 'package:flutter_music/ui/widget/king_kong_area.dart';
+import 'package:flutter_music/ui/widget/list.dart';
 import 'package:flutter_music/ui/widget/provider_widget.dart';
 import 'package:flutter_music/view_model/user_counter_vm.dart';
 import 'package:flutter_music/view_model/user_playlist_vm.dart';
@@ -28,7 +29,7 @@ class _MinePageState extends State<MinePage> {
         ),
         _list(),
         SliverToBoxAdapter(
-          child: bigDivider(),
+          child: BigDivider(),
         ),
         SliverToBoxAdapter(
           child: _PlayListWidget(),
@@ -53,17 +54,17 @@ class _MinePageState extends State<MinePage> {
 
   Widget _kingKongArea() {
     return Padding(
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Wrap(
           alignment: WrapAlignment.center,
           spacing: 35,
           children: <Widget>[
-            kingKongIcon(context, '私人FM', Icons.radio, () {}),
-            kingKongIcon(context, '最嗨电音', Icons.apps, () {}),
-            kingKongIcon(context, 'ACG专区', Icons.art_track, () {}),
-            kingKongIcon(context, 'Sati空间', Icons.ac_unit, () {}),
+            KingKongIcon('私人FM', Icons.radio, () {}),
+            KingKongIcon('最嗨电音', Icons.apps, () {}),
+            KingKongIcon('ACG专区', Icons.art_track, () {}),
+            KingKongIcon('Sati空间', Icons.ac_unit, () {}),
           ],
         ),
       ),
@@ -76,21 +77,46 @@ class _MinePageState extends State<MinePage> {
       builder: (BuildContext context, UserCounterVM value, Widget child) {
         return SliverFixedExtentList(
           delegate: SliverChildListDelegate.fixed([
-            _listItem(Icons.music_video, '本地音乐', '0', () {}),
-            _listItem(Icons.playlist_play, '最近播放', '0', () {}),
-            _listItem(Icons.cloud_download, '下载管理', '0', () {}),
-            _listItem(
-                Icons.library_music,
-                '我的电台',
-                value.isSuccess() ? '${value.userCounter.djRadioCount}' : '0',
-                () {}),
-            _listItem(
-                Icons.stars,
-                '我的收藏',
-                value.isSuccess()
+            CustomListTile(
+                icon: Icon(
+                  Icons.music_video,
+                  size: 28,
+                ),
+                title: '本地音乐',
+                subTitle: '0',
+                onPressed: () {},
+                dividePaddingLeft: 70),
+            CustomListTile(
+                icon: Icon(
+                  Icons.playlist_play,
+                  size: 28,
+                ),
+                title: '最近播放',
+                subTitle: '0',
+                onPressed: () {},
+                dividePaddingLeft: 70),
+            CustomListTile(
+                icon: Icon(
+                  Icons.library_music,
+                  size: 28,
+                ),
+                title: '我的电台',
+                subTitle: value.isSuccess()
+                    ? '${value.userCounter.djRadioCount}'
+                    : '0',
+                onPressed: () {},
+                dividePaddingLeft: 70),
+            CustomListTile(
+                icon: Icon(
+                  Icons.stars,
+                  size: 28,
+                ),
+                title: '我的收藏',
+                subTitle: value.isSuccess()
                     ? '${value.userCounter.artistCount}'
                     : '专辑/歌手/视频/专栏/Mlog',
-                () {}),
+                onPressed: () {},
+                dividePaddingLeft: 70),
           ]),
           itemExtent: 55,
         );
@@ -98,42 +124,6 @@ class _MinePageState extends State<MinePage> {
       onModelReady: (UserCounterVM value) {
         value.getUserSubCount();
       },
-    );
-  }
-
-  Widget _listItem(
-      IconData iconData, String title, String subTitle, Function onPressed,
-      {bool hasDivider = true}) {
-    return Column(
-      children: <Widget>[
-        Expanded(
-            child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Container(
-              width: 80,
-              alignment: Alignment.center,
-              child: Icon(
-                iconData,
-                size: 28,
-              ),
-            ),
-            Text(
-              title,
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 10),
-              child: Text(
-                '($subTitle)',
-              ),
-            )
-          ],
-        )),
-        Padding(
-          padding: EdgeInsets.only(left: 80, bottom: 0),
-          child: Divider(),
-        ),
-      ],
     );
   }
 }
@@ -165,7 +155,9 @@ class _PlayListState extends State<_PlayListWidget> {
                 ),
                 IconButton(
                   icon: Icon(Icons.more_vert),
-                  onPressed: () {},
+                  onPressed: () {
+                    showPlaylistsHeaderMenu(context, '创建的歌单', true);
+                  },
                 ),
               ]),
             if (globalPlaylistVM.collectionPlaylist.isNotEmpty)
@@ -173,7 +165,9 @@ class _PlayListState extends State<_PlayListWidget> {
                   '收藏的歌单', globalPlaylistVM.collectionPlaylist, [
                 IconButton(
                   icon: Icon(Icons.more_vert),
-                  onPressed: () {},
+                  onPressed: () {
+                    showPlaylistsHeaderMenu(context, '收藏的歌单', false);
+                  },
                 ),
               ]),
           ],

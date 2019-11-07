@@ -38,4 +38,14 @@ ThemeData appTheme = ThemeData(
       onError: Colors.white,
       brightness: Brightness.light),
   toggleableActiveColor: CommonColors.primaryColor,
+
 );
+
+class STheme{
+  static TextStyle dialogBtnTextStyle(BuildContext context){
+    return TextStyle(
+        fontSize: 16, color: Theme.of(context).primaryColor);
+  }
+}
+
+

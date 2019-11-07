@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_music/config/application.dart';
-import 'package:flutter_music/config/router/routes.dart';
 import 'package:flutter_music/ui/widget/button.dart';
 import 'package:flutter_music/ui/widget/provider_widget.dart';
-import 'package:flutter_music/util/toast.dart';
 import 'package:flutter_music/view_model/login_vm.dart';
 import 'package:provider/provider.dart';
 
@@ -37,10 +34,10 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('手机号登录'),
+        title:  const Text('手机号登录'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(15),
+        padding:  const EdgeInsets.all(15),
         child: Form(
           child: Column(
             children: <Widget>[
@@ -60,7 +57,7 @@ class _LoginPageState extends State<LoginPage> {
       maxLines: 1,
       textInputAction: TextInputAction.next,
       keyboardType: TextInputType.phone,
-      decoration: InputDecoration(prefixText: '+86 | ', hintText: '请输入手机号'),
+      decoration: const  InputDecoration(prefixText: '+86 | ', hintText: '请输入手机号'),
       onFieldSubmitted: (_) {
         ///密码输入框获取焦点
         FocusScope.of(context).requestFocus(_pwdFocusNode);
@@ -68,7 +65,7 @@ class _LoginPageState extends State<LoginPage> {
       autofocus: true,
       autovalidate: false,
       validator: (String phone) {
-        RegExp mobile = new RegExp(r"1[0-9]\d{9}$");
+        RegExp mobile =  RegExp(r"1[0-9]\d{9}$");
         if (mobile.hasMatch(phone)) {
           return null;
         } else {
@@ -80,14 +77,14 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _loginBtn() {
     return Container(
-      margin: EdgeInsets.only(top: 20),
+      margin:  const EdgeInsets.only(top: 20),
       child: ProviderWidget(
         model: LoginVM(Provider.of(context)),
         builder: (BuildContext context, LoginVM value, Widget child) {
           return PrimaryButton(
             child: value.isLoading()
                 ? CircularProgressIndicator()
-                : Padding(
+                :  const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 40),
                     child: Text('登录'),
                   ),
@@ -132,7 +129,7 @@ class _PwdWidgetState extends State<_PwdWidget> {
         hintText: '请输入密码',
         suffix: GestureDetector(
           child: Padding(
-            padding: EdgeInsets.only(right: 15),
+            padding: const  EdgeInsets.only(right: 15),
             child: Icon(obscureText ? Icons.lock : Icons.lock_open),
           ),
           onTap: () {

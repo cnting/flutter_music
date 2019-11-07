@@ -2,9 +2,9 @@ import 'package:async/async.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_music/config/application.dart';
 import 'package:flutter_music/config/router/routes.dart';
-import 'package:flutter_music/util/toast.dart';
-import 'package:flutter_music/view_model/user_vm.dart';
 import 'package:flutter_music/view_model/base/view_state_vm.dart';
+import 'package:flutter_music/view_model/user_vm.dart';
+import 'package:oktoast/oktoast.dart';
 
 class LoginVM extends ViewStateVM {
   GlobalUserVM _userVM;
@@ -23,7 +23,7 @@ class LoginVM extends ViewStateVM {
       App.router.navigateTo(context, Routes.home, clearStack: true);
     } else {
       setError();
-      toast(context, '登录失败，请稍后再试');
+      showToast('登录失败，请稍后再试');
     }
   }
 }

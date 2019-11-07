@@ -28,7 +28,6 @@ class GlobalPlaylistVM extends ChangeNotifier {
   }
 }
 
-///歌单管理
 class UserPlaylistVM extends ViewStateVM {
   GlobalUserVM _globalUserVM;
 
@@ -63,20 +62,44 @@ class UserPlaylistVM extends ViewStateVM {
       }
     }
   }
+}
 
+class CreatePlaylistVM extends ViewStateVM{
   ///创建歌单
   createNewPlaylist(
       GlobalPlaylistVM globalPlaylistVM, String name, bool isPrivate) async {
     setLoading();
     Result<Map<String, dynamic>> result =
-        await App.netRepository.createPlaylist(name, isPrivate);
+    await App.netRepository.createPlaylist(name, isPrivate);
     if (result.isError) {
       setError();
     } else {
       try {
         PlaylistDetail playlistDetail =
-            PlaylistDetail.fromJson(result.asValue.value['playlist']);
+        PlaylistDetail.fromJson(result.asValue.value['playlist']);
         globalPlaylistVM.addCreatePlaylist(playlistDetail, index: 1);
+        setSuccess();
+      } catch (e, stacktrace) {
+        print('===>$stacktrace');
+        setError();
+      }
+    }
+  }
+}
+
+class DeletePlaylistVM extends ViewStateVM{
+  ///删除歌单
+  deletePlaylist(GlobalPlaylistVM globalPlaylistVM, int id) async {
+    setLoading();
+    Result<Map<String, dynamic>> result =
+    await App.netRepository.deletePlaylist(id);
+
+    if (result.isError) {
+      print('===>error:${result.asError.error}');
+      setError();
+    } else {
+      try {
+        print('===>删除歌单:${result.asValue.value}');
         setSuccess();
       } catch (e, stacktrace) {
         print('===>$stacktrace');
